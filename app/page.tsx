@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import products from "@/data/products";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -23,14 +24,24 @@ export default function Home() {
         );
 
   return (
-    <div className="p-10">
+    <div className="main-h-screen bg-black p-10">
 
-      <h1 className="text-4xl font-bold mb-8">
+      <h1 className=" 
+    text-7xl
+    md:text-8xl
+    font-extrabold
+    text-center
+    mb-4
+    bg-gradient-to-r
+    from-blue-500
+    to-cyan-400
+    bg-clip-text
+    text-transparent">
         SnackPOS
       </h1>
 
       {/* FILTROS */}
-      <div className="flex gap-4 mb-10">
+      <div className="flex gap-4 mb-10 justify-center">
 
         {categorias.map((cat) => (
           <button
@@ -56,44 +67,67 @@ export default function Home() {
 
         {productosFiltrados.map((product) => (
 
+          <Link
+          href={`/producto/${product.id}`}
+          key={product.id}
+          >
+
           <div
-            key={product.id}
-            className="
-              border rounded-xl
-              p-5 shadow-md
-              hover:scale-105
-              transition
-            "
+          className="
+          bg-zinc-900
+          rounded-3x1
+          overflow-hidden
+          shadow-lg
+          hover:shadow-2x1
+          hover:-translate-y-2
+          transition-all duration-300
+          cursor-pointer
+          "
           >
 
             <img
-              src={product.imagen}
-              alt={product.nombre}
-              className="
-                w-full h-48
-                object-cover
-                rounded-lg mb-4
-              "
+            src={product.imagen}
+            alt={product.nombre}
+            className="
+            w-full
+            h-56
+            object-cover"
             />
 
-            <h2 className="text-2xl font-bold">
-              {product.nombre}
-            </h2>
+            <div className="p-5">
 
-            <p className="text-gray-500">
-              {product.categoria}
-            </p>
+              <p className="
+              text-sm
+              text-blue-600
+              font-semibold
+              mb-2
+              ">
+                {product.categoria}
+              </p>
 
-            <p className="text-xl font-bold mt-2">
-              ${product.precio}
-            </p>
+              <h2 className="
+              text-2xl
+              font-bold
+              mb-3
+              text-white
+              ">
+                {product.nombre}
+              </h2>
 
+              <p className="
+              text-3x1
+              font-extrabold
+              text-green-600
+              ">
+                ${product.precio}
+              </p>
+            </div>
           </div>
 
+         </Link>
+
         ))}
-
       </div>
-
     </div>
   );
 }

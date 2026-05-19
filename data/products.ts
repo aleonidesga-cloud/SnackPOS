@@ -70,7 +70,16 @@ const products = [
     categoria: "Postres",
     imagen: "/images/pastel.jpg",
     descripcion: "Rebanada de pastel"
+  },
+  {
+    id: 10,
+    nombre:"Galletas",
+    precio: 30,
+    categoria: "Postres",
+    imagen: "/images/galletas.jpg",
+    descripcion: "Gallletas de chocolate"
   }
 ];
+
 
 export default products;
