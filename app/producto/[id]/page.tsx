@@ -1,38 +1,56 @@
+"use client";
+
 import products from "@/data/products";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
+import { useParams } from "next/navigation";
 
-export default async function ProductDetail({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default function ProductDetail() {
 
-  const { id } = await params;
+  const { addToCart } = useCart();
+
+  const params = useParams();
 
   const product = products.find(
-    (p) => p.id === Number(id)
+    (p) => p.id === Number(params.id)
   );
 
   if (!product) {
     return (
-      <h1 className="text-3xl p-10">
+      <h1
+        className="
+          text-3xl
+          p-10
+          text-white
+        "
+      >
         Producto no encontrado
       </h1>
     );
   }
 
   return (
-    <div className="min-h-screen p-10">
+    <div
+      className="
+        min-h-screen
+        bg-black
+        text-white
+        p-10
+      "
+    >
 
       <Link
         href="/"
         className="
-          bg-gray-200
-          text-black
-          px-5 py-2
-          rounded-lg
+          bg-zinc-800
+          text-white
+          px-5
+          py-3
+          rounded-xl
           inline-block
-          mb-8
+          mb-10
+          hover:bg-zinc-700
+          transition
         "
       >
         ← Regresar
@@ -40,8 +58,11 @@ export default async function ProductDetail({
 
       <div
         className="
-          grid grid-cols-1 md:grid-cols-2
-          gap-10 items-center
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          gap-10
+          items-center
         "
       >
 
@@ -53,39 +74,70 @@ export default async function ProductDetail({
             w-full
             h-[500px]
             object-cover
-            rounded-2xl
-            shadow-lg
+            rounded-3xl
+            shadow-2xl
           "
         />
 
-        {/* INFORMACIÓN */}
+        {/* INFO */}
         <div>
 
-          <h1 className="text-5xl font-bold mb-5">
-            {product.nombre}
-          </h1>
-
-          <p className="text-2xl text-gray-300 mb-5">
+          <p
+            className="
+              text-blue-400
+              text-xl
+              mb-3
+              font-semibold
+            "
+          >
             {product.categoria}
           </p>
 
-          <p className="text-4xl font-bold mb-8">
+          <h1
+            className="
+              text-6xl
+              font-extrabold
+              mb-6
+            "
+          >
+            {product.nombre}
+          </h1>
+
+          <p
+            className="
+              text-5xl
+              font-bold
+              text-green-400
+              mb-8
+            "
+          >
             ${product.precio}
           </p>
 
-          <p className="text-lg leading-8 mb-10">
+          <p
+            className="
+              text-xl
+              leading-9
+              text-gray-300
+              mb-10
+            "
+          >
             {product.descripcion}
           </p>
 
           <button
+            onClick={() => addToCart(product)}
             className="
               bg-blue-600
               hover:bg-blue-700
               transition
               text-white
-              px-8 py-4
-              rounded-xl
-              text-xl
+              px-10
+              py-5
+              rounded-2xl
+              text-2xl
+              font-bold
+              shadow-lg
             "
           >
             Agregar al carrito

@@ -3,10 +3,14 @@
 import { useState } from "react";
 import products from "@/data/products";
 import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 export default function Home() {
 
   const [categoria, setCategoria] = useState("Todos");
+
+  const { carrito } = useCart();
 
   const categorias = [
     "Todos",
@@ -26,19 +30,87 @@ export default function Home() {
   return (
     <div className="main-h-screen bg-black p-10">
 
-      <h1 className=" 
-    text-7xl
-    md:text-8xl
-    font-extrabold
-    text-center
-    mb-4
-    bg-gradient-to-r
-    from-blue-500
-    to-cyan-400
-    bg-clip-text
-    text-transparent">
-        SnackPOS
-      </h1>
+<div
+  className="
+    flex
+    justify-between
+    items-center
+    mb-10
+  "
+>
+
+  <div className="flex-1">
+
+    <h1
+      className="
+        text-7xl
+        md:text-8xl
+        font-extrabold
+        text-center
+        mb-4
+        bg-gradient-to-r
+        from-blue-500
+        to-cyan-400
+        bg-clip-text
+        text-transparent
+      "
+    >
+      SnackPOS
+    </h1>
+
+    <p
+      className="
+        text-center
+        text-gray-400
+        text-2xl
+        font-light
+      "
+    >
+      Sistema inteligente de punto de venta
+    </p>
+
+  </div>
+
+  {/* CARRITO */}
+  <Link
+    href="/carrito"
+    className="
+      relative
+      bg-zinc-800
+      p-4
+      rounded-full
+      hover:bg-zinc-700
+      transition
+    "
+  >
+
+    <ShoppingCart
+      className="text-white"
+      size={35}
+    />
+
+    <span
+      className="
+        absolute
+        -top-2
+        -right-2
+        bg-red-500
+        text-white
+        text-sm
+        w-7 h-7
+        rounded-full
+        flex
+        items-center
+        justify-center
+        font-bold
+      "
+    >
+      {carrito.length}
+    </span>
+
+  </Link>
+
+</div>
 
       {/* FILTROS */}
       <div className="flex gap-4 mb-10 justify-center">
