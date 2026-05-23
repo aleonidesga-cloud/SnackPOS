@@ -4,10 +4,11 @@ import products from "@/data/products";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { useParams } from "next/navigation";
+import { ShoppingCart } from "lucide-react";
 
 export default function ProductDetail() {
 
-  const { addToCart } = useCart();
+  const { carrito, addToCart } = useCart();
 
   const params = useParams();
 
@@ -30,6 +31,7 @@ export default function ProductDetail() {
   }
 
   return (
+
     <div
       className="
         min-h-screen
@@ -39,6 +41,7 @@ export default function ProductDetail() {
       "
     >
 
+      {/* BOTÓN REGRESAR */}
       <Link
         href="/"
         className="
@@ -56,6 +59,52 @@ export default function ProductDetail() {
         ← Regresar
       </Link>
 
+      {/* CARRITO FLOTANTE */}
+      <Link
+        href="/carrito"
+        className="
+          fixed
+          bottom-8
+          right-8
+          z-50
+          bg-blue-600
+          p-5
+          rounded-full
+          shadow-2xl
+          hover:scale-110
+          hover:bg-blue-700
+          transition-all
+        "
+      >
+
+        <ShoppingCart
+          className="text-white"
+          size={35}
+        />
+
+        <span
+          className="
+            absolute
+            -top-2
+            -right-2
+            bg-red-500
+            text-white
+            text-sm
+            w-7
+            h-7
+            rounded-full
+            flex
+            items-center
+            justify-center
+            font-bold
+          "
+        >
+          {carrito.length}
+        </span>
+
+      </Link>
+
+      {/* CONTENIDO */}
       <div
         className="
           grid
@@ -79,7 +128,7 @@ export default function ProductDetail() {
           "
         />
 
-        {/* INFO */}
+        {/* INFORMACIÓN */}
         <div>
 
           <p
@@ -125,19 +174,22 @@ export default function ProductDetail() {
             {product.descripcion}
           </p>
 
+          {/* BOTÓN AGREGAR */}
           <button
-            onClick={() => addToCart(product)}
+            onClick={() => {
+              addToCart(product);
+              alert("Producto agregado al carrito 🛒");
+            }}
             className="
               bg-blue-600
               hover:bg-blue-700
               transition
               text-white
-              px-10
-              py-5
-              rounded-2xl
-              text-2xl
+              px-8
+              py-4
+              rounded-xl
+              text-xl
               font-bold
-              shadow-lg
             "
           >
             Agregar al carrito
@@ -148,5 +200,6 @@ export default function ProductDetail() {
       </div>
 
     </div>
+
   );
 }
